@@ -21,7 +21,7 @@ public class NPCData {
         this.name = name;
         this.entityType = entityType;
         this.location = location;
-        this.pose = NPCPose.NONE;
+        this.pose = NPCPose.STANDING;
     }
 
     public int getId() {
