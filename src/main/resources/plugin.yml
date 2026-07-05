@@ -6,6 +6,8 @@ author: survivalapp8496-ctrl
 
 commands:
   npc:
+    description: Main NPC command
+    usage: /npc
     permission: advancednpc.admin
 
 permissions:
