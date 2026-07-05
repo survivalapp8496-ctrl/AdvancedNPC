@@ -1,1 +1,3 @@
-
+look-distance: 5
+save-on-change: true
+storage: YAML
