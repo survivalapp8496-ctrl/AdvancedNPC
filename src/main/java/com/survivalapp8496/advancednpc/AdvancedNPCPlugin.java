@@ -1,5 +1,6 @@
 package com.survivalapp8496.advancednpc;
 
+import com.survivalapp8496.advancednpc.commands.NPCCommand;
 import com.survivalapp8496.advancednpc.npc.NPCManager;
 import com.survivalapp8496.advancednpc.storage.YamlStorage;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,7 +16,7 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        // Create default files
+        // Create config files
         saveDefaultConfig();
         saveResource("data.yml", false);
 
@@ -23,8 +24,13 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
         npcManager = new NPCManager();
         storage = new YamlStorage(this);
 
-        // Load NPCs from data.yml
+        // Load NPCs
         storage.loadNPCs(npcManager);
+
+        // Register commands
+        if (getCommand("npc") != null) {
+            getCommand("npc").setExecutor(new NPCCommand(this));
+        }
 
         getLogger().info("AdvancedNPC Enabled!");
     }
@@ -32,7 +38,7 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        // Save all NPCs
+        // Save NPCs
         if (storage != null && npcManager != null) {
             storage.saveNPCs(npcManager);
         }
