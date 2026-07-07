@@ -2,11 +2,9 @@ package com.survivalapp8496.advancednpc.commands;
 
 import com.survivalapp8496.advancednpc.AdvancedNPCPlugin;
 import com.survivalapp8496.advancednpc.npc.NPCData;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 public class NPCCommand implements CommandExecutor {
@@ -24,94 +22,61 @@ public class NPCCommand implements CommandExecutor {
                              String[] args) {
 
         if (!(sender instanceof Player player)) {
-            sender.sendMessage("Only players can use this command.");
+            sender.sendMessage("§cOnly players can use this command.");
             return true;
         }
 
-        // /npc create <name>
-        if (args.length >= 2 && args[0].equalsIgnoreCase("create")) {
+        // /npc
+        if (args.length == 0) {
+            sendHelp(player);
+            return true;
+        }
 
-            String name = args[1];
-            Location location = player.getLocation();
-
-            NPCData npc = plugin.getNpcManager().createNPC(
-                    name,
-                    EntityType.PLAYER,
-                    location
-            );
-
-            plugin.getStorage()
-                    .saveNPCs(plugin.getNpcManager());
-
-            player.sendMessage("§aCreated NPC '" +
-                    name +
-                    "' with ID: " +
-                    npc.getId());
-
+        // /npc help
+        if (args[0].equalsIgnoreCase("help")) {
+            sendHelp(player);
             return true;
         }
 
         // /npc list
-        if (args.length == 1 &&
-                args[0].equalsIgnoreCase("list")) {
+        if (args[0].equalsIgnoreCase("list")) {
 
-            player.sendMessage("§6===== NPC List =====");
+            if (plugin.getNpcManager().isEmpty()) {
+                player.sendMessage("§cThere are no NPCs.");
+                return true;
+            }
 
-            for (NPCData npc :
-                    plugin.getNpcManager().getNPCs()) {
+            player.sendMessage("§6========== NPC List ==========");
+
+            for (NPCData npc : plugin.getNpcManager().getNPCs()) {
 
                 player.sendMessage(
-                        "§eID: " +
-                        npc.getId() +
-                        " §7| §f" +
-                        npc.getName() +
-                        " §7| §b" +
-                        npc.getEntityType()
+                        "§e#" + npc.getId()
+                        + " §7| §f" + npc.getName()
+                        + " §7| §b" + npc.getEntityType().name()
                 );
             }
+
+            player.sendMessage("§6==============================");
 
             return true;
         }
 
-        // /npc remove <id>
-        if (args.length >= 2 &&
-                args[0].equalsIgnoreCase("remove")) {
-
-            try {
-                int id = Integer.parseInt(args[1]);
-
-                if (plugin.getNpcManager()
-                        .removeNPC(id)) {
-
-                    plugin.getStorage()
-                            .saveNPCs(
-                                    plugin.getNpcManager()
-                            );
-
-                    player.sendMessage(
-                            "§cRemoved NPC #" + id
-                    );
-
-                } else {
-                    player.sendMessage(
-                            "§cNPC not found."
-                    );
-                }
-
-            } catch (NumberFormatException e) {
-                player.sendMessage(
-                        "§cInvalid NPC ID."
-                );
-            }
-
-            return true;
-        }
-
-        player.sendMessage("§6AdvancedNPC Commands:");
-        player.sendMessage("§e/npc create <name>");
-        player.sendMessage("§e/npc list");
-        player.sendMessage("§e/npc remove <id>");
-
+        player.sendMessage("§cUnknown sub-command.");
+        sendHelp(player);
         return true;
+    }
+
+    private void sendHelp(Player player) {
+
+        player.sendMessage("§6========== AdvancedNPC ==========");
+        player.sendMessage("§e/npc help");
+        player.sendMessage("§e/npc list");
+        player.sendMessage("§e/npc create <name> <mob>");
+        player.sendMessage("§e/npc remove <id>");
+        player.sendMessage("§e/npc tp <id>");
+        player.sendMessage("§e/npc movehere <id>");
+        player.sendMessage("§e/npc edit <id>");
+        player.sendMessage("§6=================================");
     }
 }
