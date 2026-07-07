@@ -1,7 +1,10 @@
 package com.survivalapp8496.advancednpc;
 
 import com.survivalapp8496.advancednpc.commands.NPCCommand;
+import com.survivalapp8496.advancednpc.listener.NPCListener;
 import com.survivalapp8496.advancednpc.npc.NPCManager;
+import com.survivalapp8496.advancednpc.npc.NPCSpawnManager;
+import com.survivalapp8496.advancednpc.packet.PacketManager;
 import com.survivalapp8496.advancednpc.storage.YamlStorage;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -10,35 +13,46 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
     private static AdvancedNPCPlugin instance;
 
     private NPCManager npcManager;
+    private NPCSpawnManager npcSpawnManager;
+    private PacketManager packetManager;
     private YamlStorage storage;
 
     @Override
     public void onEnable() {
+
         instance = this;
 
-        // Create config files
         saveDefaultConfig();
         saveResource("data.yml", false);
 
-        // Create managers
         npcManager = new NPCManager();
+        npcSpawnManager = new NPCSpawnManager();
+        packetManager = new PacketManager();
         storage = new YamlStorage(this);
 
-        // Load NPCs
         storage.loadNPCs(npcManager);
 
-        // Register commands
         if (getCommand("npc") != null) {
             getCommand("npc").setExecutor(new NPCCommand(this));
         }
 
-        getLogger().info("AdvancedNPC Enabled!");
+        getServer().getPluginManager().registerEvents(
+                new NPCListener(this),
+                this
+        );
+
+        getLogger().info("====================================");
+        getLogger().info(" AdvancedNPC v1.0 Enabled!");
+        getLogger().info(" NPC Manager Loaded");
+        getLogger().info(" Packet Manager Loaded");
+        getLogger().info(" Spawn Manager Loaded");
+        getLogger().info(" YAML Storage Loaded");
+        getLogger().info("====================================");
     }
 
     @Override
     public void onDisable() {
 
-        // Save NPCs
         if (storage != null && npcManager != null) {
             storage.saveNPCs(npcManager);
         }
@@ -52,6 +66,14 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
 
     public NPCManager getNpcManager() {
         return npcManager;
+    }
+
+    public NPCSpawnManager getNpcSpawnManager() {
+        return npcSpawnManager;
+    }
+
+    public PacketManager getPacketManager() {
+        return packetManager;
     }
 
     public YamlStorage getStorage() {
