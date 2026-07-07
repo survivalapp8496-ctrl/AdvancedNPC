@@ -3,6 +3,7 @@ package com.survivalapp8496.advancednpc;
 import com.survivalapp8496.advancednpc.commands.NPCCommand;
 import com.survivalapp8496.advancednpc.listener.NPCListener;
 import com.survivalapp8496.advancednpc.npc.NPCManager;
+import com.survivalapp8496.advancednpc.npc.NPCRegistry;
 import com.survivalapp8496.advancednpc.npc.NPCSpawnManager;
 import com.survivalapp8496.advancednpc.packet.PacketManager;
 import com.survivalapp8496.advancednpc.storage.YamlStorage;
@@ -13,6 +14,7 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
     private static AdvancedNPCPlugin instance;
 
     private NPCManager npcManager;
+    private NPCRegistry npcRegistry;
     private NPCSpawnManager npcSpawnManager;
     private PacketManager packetManager;
     private YamlStorage storage;
@@ -26,6 +28,7 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
         saveResource("data.yml", false);
 
         npcManager = new NPCManager();
+        npcRegistry = new NPCRegistry();
         npcSpawnManager = new NPCSpawnManager();
         packetManager = new PacketManager();
         storage = new YamlStorage(this);
@@ -41,13 +44,7 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
                 this
         );
 
-        getLogger().info("====================================");
-        getLogger().info(" AdvancedNPC v1.0 Enabled!");
-        getLogger().info(" NPC Manager Loaded");
-        getLogger().info(" Packet Manager Loaded");
-        getLogger().info(" Spawn Manager Loaded");
-        getLogger().info(" YAML Storage Loaded");
-        getLogger().info("====================================");
+        getLogger().info("AdvancedNPC Enabled!");
     }
 
     @Override
@@ -55,6 +52,10 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
 
         if (storage != null && npcManager != null) {
             storage.saveNPCs(npcManager);
+        }
+
+        if (npcRegistry != null) {
+            npcRegistry.clear();
         }
 
         getLogger().info("AdvancedNPC Disabled!");
@@ -66,6 +67,10 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
 
     public NPCManager getNpcManager() {
         return npcManager;
+    }
+
+    public NPCRegistry getNpcRegistry() {
+        return npcRegistry;
     }
 
     public NPCSpawnManager getNpcSpawnManager() {
