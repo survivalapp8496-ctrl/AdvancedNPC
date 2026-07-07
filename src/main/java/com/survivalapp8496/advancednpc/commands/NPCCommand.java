@@ -87,6 +87,107 @@ if (args[0].equalsIgnoreCase("create")) {
     return true;
 }
 
+// /npc remove <id>
+if (args[0].equalsIgnoreCase("remove")) {
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage: /npc remove <id>");
+        return true;
+    }
+
+    int id;
+
+    try {
+        id = Integer.parseInt(args[1]);
+    } catch (NumberFormatException e) {
+        player.sendMessage("§cInvalid NPC ID.");
+        return true;
+    }
+
+    if (!plugin.getNpcManager().containsNPC(id)) {
+        player.sendMessage("§cNPC not found.");
+        return true;
+    }
+
+    plugin.getNpcSpawnManager().despawn(id);
+
+    plugin.getNpcManager().removeNPC(id);
+
+    plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+    player.sendMessage("§aNPC #" + id + " removed.");
+
+    return true;
+}
+
+
+// /npc tp <id>
+if (args[0].equalsIgnoreCase("tp")) {
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage: /npc tp <id>");
+        return true;
+    }
+
+    int id;
+
+    try {
+        id = Integer.parseInt(args[1]);
+    } catch (NumberFormatException e) {
+        player.sendMessage("§cInvalid NPC ID.");
+        return true;
+    }
+
+    EntityNPC npc = plugin.getNpcSpawnManager().getNPC(id);
+
+    if (npc == null) {
+        player.sendMessage("§cNPC not spawned.");
+        return true;
+    }
+
+    player.teleport(npc.getEntity().getLocation());
+
+    player.sendMessage("§aTeleported to NPC #" + id);
+
+    return true;
+}
+
+// /npc movehere <id>
+if (args[0].equalsIgnoreCase("movehere")) {
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage: /npc movehere <id>");
+        return true;
+    }
+
+    int id;
+
+    try {
+        id = Integer.parseInt(args[1]);
+    } catch (NumberFormatException e) {
+        player.sendMessage("§cInvalid NPC ID.");
+        return true;
+    }
+
+    plugin.getNpcSpawnManager().teleport(
+            id,
+            player.getLocation()
+    );
+
+    NPCData data = plugin.getNpcManager().getNPC(id);
+
+    if (data != null) {
+        data.setLocation(player.getLocation());
+    }
+
+    plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+    player.sendMessage("§aNPC moved to your location.");
+
+    return true;
+}
+
+
         // /npc list
         if (args[0].equalsIgnoreCase("list")) {
 
