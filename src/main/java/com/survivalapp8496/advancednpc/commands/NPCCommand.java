@@ -6,6 +6,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
+import com.survivalapp8496.advancednpc.npc.EntityNPC;
 
 public class NPCCommand implements CommandExecutor {
 
@@ -37,6 +40,52 @@ public class NPCCommand implements CommandExecutor {
             sendHelp(player);
             return true;
         }
+
+// /npc create <name> <mob>
+if (args[0].equalsIgnoreCase("create")) {
+
+    if (args.length < 3) {
+        player.sendMessage("§cUsage: /npc create <name> <mob>");
+        return true;
+    }
+
+    String name = args[1];
+
+    EntityType type;
+
+    try {
+        type = EntityType.valueOf(args[2].toUpperCase());
+    } catch (IllegalArgumentException ex) {
+        player.sendMessage("§cUnknown mob type: " + args[2]);
+        return true;
+    }
+
+    Location location = player.getLocation();
+
+    NPCData data = plugin.getNpcManager().createNPC(
+            name,
+            type,
+            location
+    );
+
+    EntityNPC spawned = plugin
+            .getNpcSpawnManager()
+            .spawn(data);
+
+    if (spawned == null) {
+        player.sendMessage("§cFailed to spawn NPC.");
+        return true;
+    }
+
+    plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+    player.sendMessage("§aNPC Created!");
+    player.sendMessage("§7ID: §e" + data.getId());
+    player.sendMessage("§7Name: §f" + data.getName());
+    player.sendMessage("§7Type: §b" + data.getEntityType());
+
+    return true;
+}
 
         // /npc list
         if (args[0].equalsIgnoreCase("list")) {
