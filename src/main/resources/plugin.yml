@@ -1,15 +1,22 @@
 name: AdvancedNPC
 version: 1.0.0
+
 main: com.survivalapp8496.advancednpc.AdvancedNPCPlugin
+
 api-version: '1.21'
+
 author: survivalapp8496-ctrl
+
+depend:
+  - ProtocolLib
 
 commands:
   npc:
-    description: Main NPC command
+    description: Main NPC Command
     usage: /npc
     permission: advancednpc.admin
 
 permissions:
+
   advancednpc.admin:
     default: op
