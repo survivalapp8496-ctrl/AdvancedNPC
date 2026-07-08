@@ -2,6 +2,7 @@ package com.survivalapp8496.advancednpc;
 
 import com.survivalapp8496.advancednpc.commands.NPCCommand;
 import com.survivalapp8496.advancednpc.listener.NPCListener;
+import com.survivalapp8496.advancednpc.npc.NPCEditorManager;
 import com.survivalapp8496.advancednpc.npc.NPCManager;
 import com.survivalapp8496.advancednpc.npc.NPCRegistry;
 import com.survivalapp8496.advancednpc.npc.NPCSpawnManager;
@@ -16,6 +17,7 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
     private NPCManager npcManager;
     private NPCRegistry npcRegistry;
     private NPCSpawnManager npcSpawnManager;
+    private NPCEditorManager npcEditorManager;
     private PacketManager packetManager;
     private YamlStorage storage;
 
@@ -30,6 +32,7 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
         npcManager = new NPCManager();
         npcRegistry = new NPCRegistry();
         npcSpawnManager = new NPCSpawnManager();
+        npcEditorManager = new NPCEditorManager();
         packetManager = new PacketManager();
         storage = new YamlStorage(this);
 
@@ -44,7 +47,15 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
                 this
         );
 
-        getLogger().info("AdvancedNPC Enabled!");
+        getLogger().info("==================================");
+        getLogger().info(" AdvancedNPC Enabled");
+        getLogger().info(" NPC Manager Loaded");
+        getLogger().info(" NPC Registry Loaded");
+        getLogger().info(" NPC Spawn Manager Loaded");
+        getLogger().info(" NPC Editor Manager Loaded");
+        getLogger().info(" Packet Manager Loaded");
+        getLogger().info(" YAML Storage Loaded");
+        getLogger().info("==================================");
     }
 
     @Override
@@ -52,6 +63,10 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
 
         if (storage != null && npcManager != null) {
             storage.saveNPCs(npcManager);
+        }
+
+        if (npcSpawnManager != null) {
+            npcSpawnManager.despawnAll();
         }
 
         if (npcRegistry != null) {
@@ -75,6 +90,10 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
 
     public NPCSpawnManager getNpcSpawnManager() {
         return npcSpawnManager;
+    }
+
+    public NPCEditorManager getNpcEditorManager() {
+        return npcEditorManager;
     }
 
     public PacketManager getPacketManager() {
