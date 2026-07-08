@@ -34,30 +34,23 @@ public class EntityNPC {
     }
 
     public void setGlowing(boolean glowing) {
-
         if (getEntity() != null) {
             getEntity().setGlowing(glowing);
         }
-
         data.setGlowing(glowing);
     }
 
     public void setCustomName(String name) {
-
         if (getEntity() != null) {
             getEntity().customName(net.kyori.adventure.text.Component.text(name));
             getEntity().setCustomNameVisible(true);
         }
-
         data.setName(name);
     }
 
     public void setHelmet(ItemStack item) {
-
         if (getEntity() instanceof LivingEntity living) {
-
             EntityEquipment eq = living.getEquipment();
-
             if (eq != null) {
                 eq.setHelmet(item);
             }
@@ -65,11 +58,8 @@ public class EntityNPC {
     }
 
     public void setChestplate(ItemStack item) {
-
         if (getEntity() instanceof LivingEntity living) {
-
             EntityEquipment eq = living.getEquipment();
-
             if (eq != null) {
                 eq.setChestplate(item);
             }
@@ -77,11 +67,8 @@ public class EntityNPC {
     }
 
     public void setLeggings(ItemStack item) {
-
         if (getEntity() instanceof LivingEntity living) {
-
             EntityEquipment eq = living.getEquipment();
-
             if (eq != null) {
                 eq.setLeggings(item);
             }
@@ -89,11 +76,8 @@ public class EntityNPC {
     }
 
     public void setBoots(ItemStack item) {
-
         if (getEntity() instanceof LivingEntity living) {
-
             EntityEquipment eq = living.getEquipment();
-
             if (eq != null) {
                 eq.setBoots(item);
             }
@@ -101,11 +85,8 @@ public class EntityNPC {
     }
 
     public void setMainHand(ItemStack item) {
-
         if (getEntity() instanceof LivingEntity living) {
-
             EntityEquipment eq = living.getEquipment();
-
             if (eq != null) {
                 eq.setItemInMainHand(item);
             }
@@ -113,11 +94,8 @@ public class EntityNPC {
     }
 
     public void setOffHand(ItemStack item) {
-
         if (getEntity() instanceof LivingEntity living) {
-
             EntityEquipment eq = living.getEquipment();
-
             if (eq != null) {
                 eq.setItemInOffHand(item);
             }
@@ -126,48 +104,41 @@ public class EntityNPC {
 
     // AI
     public void setAI(boolean enabled) {
-
         if (getEntity() instanceof LivingEntity living) {
             living.setAI(enabled);
         }
-
         data.setAI(enabled);
     }
 
     // Gravity
     public void setGravity(boolean enabled) {
-
         if (getEntity() != null) {
             getEntity().setGravity(enabled);
         }
-
         data.setGravity(enabled);
     }
-    
-    public void setInvulnerable(boolean enabled) {
 
+    // Invulnerable
+    public void setInvulnerable(boolean enabled) {
         if (getEntity() != null) {
             getEntity().setInvulnerable(enabled);
-    }
-
+        }
         data.setInvulnerable(enabled);
     }
 
+    // Silent
     public void setSilent(boolean enabled) {
-
         if (getEntity() != null) {
             getEntity().setSilent(enabled);
-    }
-
+        }
         data.setSilent(enabled);
     }
 
+    // Collidable
     public void setCollidable(boolean enabled) {
-
         if (getEntity() != null) {
             getEntity().setCollidable(enabled);
-    }
-
+        }
         data.setCollidable(enabled);
     }
 }
