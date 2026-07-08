@@ -8,6 +8,7 @@ import com.survivalapp8496.advancednpc.npc.NPCRegistry;
 import com.survivalapp8496.advancednpc.npc.NPCSpawnManager;
 import com.survivalapp8496.advancednpc.packet.PacketManager;
 import com.survivalapp8496.advancednpc.storage.YamlStorage;
+import com.survivalapp8496.advancednpc.tasks.NPCLookTask;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AdvancedNPCPlugin extends JavaPlugin {
@@ -42,10 +43,14 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
             getCommand("npc").setExecutor(new NPCCommand(this));
         }
 
+        // Register listeners
         getServer().getPluginManager().registerEvents(
                 new NPCListener(this),
                 this
         );
+
+        // Start NPC look task
+        new NPCLookTask(this).runTaskTimer(this, 1L, 2L);
 
         getLogger().info("==================================");
         getLogger().info(" AdvancedNPC Enabled");
@@ -55,6 +60,7 @@ public final class AdvancedNPCPlugin extends JavaPlugin {
         getLogger().info(" NPC Editor Manager Loaded");
         getLogger().info(" Packet Manager Loaded");
         getLogger().info(" YAML Storage Loaded");
+        getLogger().info(" NPCLookTask Started");
         getLogger().info("==================================");
     }
 
