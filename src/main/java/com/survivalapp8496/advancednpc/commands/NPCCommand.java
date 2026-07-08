@@ -269,6 +269,58 @@ if (args[0].equalsIgnoreCase("glow")) {
     return true;
 }
 
+// /npc ai <on|off>
+if (args[0].equalsIgnoreCase("ai")) {
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage: /npc ai <on|off>");
+        return true;
+    }
+
+    if (!plugin.getNpcEditorManager().isEditing(player)) {
+        player.sendMessage("§cYou are not editing any NPC.");
+        return true;
+    }
+
+    int npcId = plugin.getNpcEditorManager().getEditingNPC(player);
+
+    NPCData npc = plugin.getNpcManager().getNPC(npcId);
+
+    if (npc == null) {
+        player.sendMessage("§cNPC not found.");
+        return true;
+    }
+
+    boolean enabled;
+
+    if (args[1].equalsIgnoreCase("on")) {
+        enabled = true;
+    } else if (args[1].equalsIgnoreCase("off")) {
+        enabled = false;
+    } else {
+        player.sendMessage("§cUsage: /npc ai <on|off>");
+        return true;
+    }
+
+    npc.setAI(enabled);
+
+    EntityNPC entityNPC = plugin.getNpcSpawnManager().getNPC(npcId);
+
+    if (entityNPC != null) {
+        entityNPC.setAI(enabled);
+    }
+
+    plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+    player.sendMessage(
+            enabled
+                    ? "§aNPC AI enabled."
+                    : "§cNPC AI disabled."
+    );
+
+    return true;
+}
+
 
 // /npc tp <id>
 if (args[0].equalsIgnoreCase("tp")) {
@@ -378,6 +430,7 @@ if (args[0].equalsIgnoreCase("movehere")) {
         player.sendMessage("§e/npc edit <id>");
         player.sendMessage("§e/npc rename <name>");
         player.sendMessage("§e/npc glow <on|off>");
+        player.sendMessage("§e/npc ai <on|off>");
         player.sendMessage("§6=================================");
     }
 }
