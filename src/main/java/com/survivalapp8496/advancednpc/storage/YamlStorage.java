@@ -39,6 +39,7 @@ public class YamlStorage {
             data.set(path + ".name", npc.getName());
             data.set(path + ".type", npc.getEntityType().name());
             data.set(path + ".ai", npc.hasAI());
+            data.set(path + ".gravity", npc.hasGravity());
 
             Location loc = npc.getLocation();
 
@@ -97,6 +98,10 @@ public class YamlStorage {
 
             npc.setAI(
                     data.getBoolean(path + ".ai", false)
+            );
+
+            npc.setGravity(
+                    data.getBoolean(path + ".gravity", false)
             );
 
             manager.getNPCMap().put(id, npc);
