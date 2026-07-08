@@ -64,7 +64,6 @@ public class NPCSpawnManager {
 
         despawn(data.getId());
         spawn(data);
-
     }
 
     public void teleport(int id, Location location) {
@@ -80,6 +79,23 @@ public class NPCSpawnManager {
 
     public EntityNPC getNPC(int id) {
         return spawnedNPCs.get(id);
+    }
+
+    // New Method
+    public EntityNPC getNPC(Entity entity) {
+
+        for (EntityNPC npc : spawnedNPCs.values()) {
+
+            if (npc.getEntity() == null) {
+                continue;
+            }
+
+            if (npc.getEntity().getUniqueId().equals(entity.getUniqueId())) {
+                return npc;
+            }
+        }
+
+        return null;
     }
 
     public boolean isSpawned(int id) {
