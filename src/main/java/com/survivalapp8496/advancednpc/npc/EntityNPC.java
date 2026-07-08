@@ -168,4 +168,18 @@ public void setCollidable(boolean enabled) {
     data.setCollidable(enabled);
 }
 
+public void setPose(NPCPose pose) {
+
+    if (getEntity() instanceof LivingEntity living) {
+
+        try {
+            living.setPose(org.bukkit.entity.Pose.valueOf(pose.name()));
+        } catch (IllegalArgumentException ignored) {
+            // Unsupported pose on this server version
+        }
+    }
+
+    data.setPose(pose);
+}
+
 }
