@@ -118,6 +118,42 @@ if (args[0].equalsIgnoreCase("remove")) {
     player.sendMessage("§aNPC #" + id + " removed.");
 
     return true;
+
+    // /npc edit <id>
+if (args.length >= 2 &&
+        args[0].equalsIgnoreCase("edit")) {
+
+    try {
+
+        int id = Integer.parseInt(args[1]);
+
+        NPCData npc = plugin.getNpcManager().getNPC(id);
+
+        if (npc == null) {
+
+            player.sendMessage("§cNPC not found.");
+            return true;
+
+        }
+
+        plugin.getNpcEditorManager().startEditing(player, id);
+
+        player.sendMessage("§a==========================");
+        player.sendMessage("§aEditing NPC #" + id);
+        player.sendMessage("§7Name: §f" + npc.getName());
+        player.sendMessage("§7Type: §f" + npc.getEntityType());
+        player.sendMessage("§e/npc edit <id>");
+        player.sendMessage("§7Use editor commands to modify it.");
+        player.sendMessage("§a==========================");
+
+    } catch (NumberFormatException e) {
+
+        player.sendMessage("§cInvalid NPC ID.");
+
+    }
+
+    return true;
+}
 }
 
 
