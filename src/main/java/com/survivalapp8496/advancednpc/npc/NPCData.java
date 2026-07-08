@@ -9,6 +9,8 @@ public class NPCData {
 
     private final int id;
 
+    private boolean ai;
+
     private UUID uuid;
 
     private String name;
@@ -41,6 +43,7 @@ public class NPCData {
         this.skinName = "";
         this.lookAtPlayer = true;
         this.glowing = false;
+        this.ai = false;
     }
 
     public int getId() {
@@ -110,5 +113,11 @@ public class NPCData {
     public void setGlowing(boolean glowing) {
         this.glowing = glowing;
     }
-
+    public void setAI(boolean ai) {
+        this.ai = ai;
+    }
+    public boolean hasAI() {
+        return ai;
+    }
+    
 }
