@@ -27,6 +27,7 @@ public class NPCData {
     private boolean permissionEnabled;
     private String permission;
     private String permissionMessage;
+    private final java.util.List<String> commands = new java.util.ArrayList<>();
 
     public NPCData(
             int id,
@@ -127,6 +128,10 @@ public class NPCData {
         return permissionMessage;
     }
 
+    public java.util.List<String> getCommands() {
+        return commands;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -185,5 +190,20 @@ public class NPCData {
 
     public void setPermissionMessage(String permissionMessage) {
         this.permissionMessage = permissionMessage;
+    }
+
+    public void addCommand(String command) {
+         commands.add(command);
+    }
+
+    public void removeCommand(int index) {
+
+        if (index >= 0 && index < commands.size()) {
+           commands.remove(index);
+    }
+    }
+
+    public void clearCommands() {
+         commands.clear();
     }
 }
