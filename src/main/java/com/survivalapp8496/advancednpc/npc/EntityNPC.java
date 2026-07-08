@@ -42,15 +42,6 @@ public class EntityNPC {
         data.setGlowing(glowing);
     }
 
-    public void setAI(boolean enabled) {
-
-    if (getEntity() instanceof org.bukkit.entity.LivingEntity living) {
-        living.setAI(enabled);
-    }
-
-    data.setAI(enabled);
-}
-
     public void setCustomName(String name) {
 
         if (getEntity() != null) {
@@ -131,6 +122,16 @@ public class EntityNPC {
                 eq.setItemInOffHand(item);
             }
         }
+    }
+
+    // New AI Method
+    public void setAI(boolean enabled) {
+
+        if (getEntity() instanceof LivingEntity living) {
+            living.setAI(enabled);
+        }
+
+        data.setAI(enabled);
     }
 
 }
