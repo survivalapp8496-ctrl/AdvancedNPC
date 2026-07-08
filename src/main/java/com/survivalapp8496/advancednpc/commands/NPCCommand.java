@@ -373,6 +373,58 @@ if (args[0].equalsIgnoreCase("gravity")) {
     return true;
 }
 
+// /npc invulnerable <on|off>
+if (args[0].equalsIgnoreCase("invulnerable")) {
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage: /npc invulnerable <on|off>");
+        return true;
+    }
+
+    if (!plugin.getNpcEditorManager().isEditing(player)) {
+        player.sendMessage("§cYou are not editing any NPC.");
+        return true;
+    }
+
+    int npcId = plugin.getNpcEditorManager().getEditingNPC(player);
+
+    NPCData npc = plugin.getNpcManager().getNPC(npcId);
+
+    if (npc == null) {
+        player.sendMessage("§cNPC not found.");
+        return true;
+    }
+
+    boolean enabled;
+
+    if (args[1].equalsIgnoreCase("on")) {
+        enabled = true;
+    } else if (args[1].equalsIgnoreCase("off")) {
+        enabled = false;
+    } else {
+        player.sendMessage("§cUsage: /npc invulnerable <on|off>");
+        return true;
+    }
+
+    npc.setInvulnerable(enabled);
+
+    EntityNPC entityNPC = plugin.getNpcSpawnManager().getNPC(npcId);
+
+    if (entityNPC != null) {
+        entityNPC.setInvulnerable(enabled);
+    }
+
+    plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+    player.sendMessage(
+            enabled
+                    ? "§aNPC is now invulnerable."
+                    : "§cNPC is now vulnerable."
+    );
+
+    return true;
+}
+
 // /npc look <on|off>
 if (args[0].equalsIgnoreCase("look")) {
 
