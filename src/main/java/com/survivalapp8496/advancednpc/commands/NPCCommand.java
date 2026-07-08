@@ -128,7 +128,7 @@ if (args.length >= 2 &&
 
     try {
 
-        int id 
+        int id = Integer.parseInt(args[1]);
 
         NPCData npc = plugin.getNpcManager().getNPC(id);
 
