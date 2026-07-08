@@ -635,6 +635,7 @@ if (args[0].equalsIgnoreCase("movehere")) {
         player.sendMessage("§e/npc gravity <on|off>");
         player.sendMessage("§e/npc look <on|off>");
         player.sendMessage("§e/npc invulnerable <on|off>");
+        player.sendMessage("§e/npc silent <on|off>");
         player.sendMessage("§6=================================");
     }
 }
