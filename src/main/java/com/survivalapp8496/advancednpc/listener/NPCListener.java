@@ -22,18 +22,8 @@ public class NPCListener implements Listener {
                         + event.getRightClicked().getType()
         );
 
-    if (npc.isPermissionEnabled()) {
-
-    if (!player.hasPermission("advancednpc.bypass.permission")
-            && !player.hasPermission(npc.getPermission())) {
-
-        player.sendMessage(npc.getPermissionMessage());
-        return;
+        // TODO: Get NPC from clicked entity
+        // TODO: Permission check
+        // TODO: Execute NPC commands
     }
 }
-
-// Permission pass ho gayi → NPC ke commands execute karo.
-
-    }
-
-          }
