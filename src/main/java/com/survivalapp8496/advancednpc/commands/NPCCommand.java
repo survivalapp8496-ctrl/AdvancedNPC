@@ -477,6 +477,58 @@ if (args[0].equalsIgnoreCase("silent")) {
     return true;
 }  
 
+    // /npc collidable <on|off>
+if (args[0].equalsIgnoreCase("collidable")) {
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage: /npc collidable <on|off>");
+        return true;
+    }
+
+    if (!plugin.getNpcEditorManager().isEditing(player)) {
+        player.sendMessage("§cYou are not editing any NPC.");
+        return true;
+    }
+
+    int npcId = plugin.getNpcEditorManager().getEditingNPC(player);
+
+    NPCData npc = plugin.getNpcManager().getNPC(npcId);
+
+    if (npc == null) {
+        player.sendMessage("§cNPC not found.");
+        return true;
+    }
+
+    boolean enabled;
+
+    if (args[1].equalsIgnoreCase("on")) {
+        enabled = true;
+    } else if (args[1].equalsIgnoreCase("off")) {
+        enabled = false;
+    } else {
+        player.sendMessage("§cUsage: /npc collidable <on|off>");
+        return true;
+    }
+
+    npc.setCollidable(enabled);
+
+    EntityNPC entityNPC = plugin.getNpcSpawnManager().getNPC(npcId);
+
+    if (entityNPC != null) {
+        entityNPC.setCollidable(enabled);
+    }
+
+    plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+    player.sendMessage(
+            enabled
+                    ? "§aNPC collision enabled."
+                    : "§aNPC collision disabled."
+    );
+
+    return true;
+}
+
 // /npc look <on|off>
 if (args[0].equalsIgnoreCase("look")) {
 
@@ -636,6 +688,7 @@ if (args[0].equalsIgnoreCase("movehere")) {
         player.sendMessage("§e/npc look <on|off>");
         player.sendMessage("§e/npc invulnerable <on|off>");
         player.sendMessage("§e/npc silent <on|off>");
+        player.sendMessage("§e/npc collidable <on|off>");
         player.sendMessage("§6=================================");
     }
 }
