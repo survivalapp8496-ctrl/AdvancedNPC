@@ -24,6 +24,9 @@ public class NPCData {
     private boolean invulnerable;
     private boolean silent;
     private boolean collidable;
+    private boolean permissionEnabled;
+    private String permission;
+    private String permissionMessage;
 
     public NPCData(
             int id,
@@ -47,6 +50,9 @@ public class NPCData {
         this.invulnerable = true;
         this.silent = true;
         this.collidable = true;
+        this.permissionEnabled = false;
+        this.permission = "";
+        this.permissionMessage = "§cYou don't have permission.";
     }
 
     public int getId() {
@@ -109,6 +115,18 @@ public class NPCData {
         return collidable;
     }
 
+    public boolean isPermissionEnabled() {
+        return permissionEnabled;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public String getPermissionMessage() {
+        return permissionMessage;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -155,5 +173,17 @@ public class NPCData {
 
     public void setCollidable(boolean collidable) {
         this.collidable = collidable;
+    }
+
+    public void setPermissionEnabled(boolean permissionEnabled) {
+        this.permissionEnabled = permissionEnabled;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public void setPermissionMessage(String permissionMessage) {
+        this.permissionMessage = permissionMessage;
     }
 }
