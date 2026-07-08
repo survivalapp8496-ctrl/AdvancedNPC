@@ -45,6 +45,9 @@ public class YamlStorage {
             data.set(path + ".invulnerable", npc.isInvulnerable());
             data.set(path + ".silent", npc.isSilent());
             data.set(path + ".collidable", npc.isCollidable());
+            data.set(path + ".permission.enabled", npc.isPermissionEnabled());
+            data.set(path + ".permission.node", npc.getPermission());
+            data.set(path + ".permission.message", npc.getPermissionMessage());
 
             Location loc = npc.getLocation();
 
@@ -117,8 +120,15 @@ public class YamlStorage {
             npc.setLookAtPlayer(data.getBoolean(path + ".look", true));
             npc.setInvulnerable(data.getBoolean(path + ".invulnerable", true));
             npc.setSilent(data.getBoolean(path + ".silent", true));
-            npc.setCollidable(data.getBoolean(path + ".collidable", true)           
-            );
+            npc.setCollidable(data.getBoolean(path + ".collidable", true));
+            npc.setPermissionEnabled(data.getBoolean(path + ".permission.enabled", false));
+            npc.setPermission(data.getString(path + ".permission.node", ""));
+            npc.setPermissionMessage(data.getString(
+                path + ".permission.message",
+                "§cYou don't have permission."
+        )
+);
+            
 
             manager.getNPCMap().put(id, npc);
         }
