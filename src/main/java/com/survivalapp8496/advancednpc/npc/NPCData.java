@@ -9,6 +9,8 @@ public class NPCData {
 
     private final int id;
 
+    private boolean lookAtPlayer;
+
     private boolean gravity;
 
     private boolean ai;
@@ -47,6 +49,7 @@ public class NPCData {
         this.glowing = false;
         this.ai = false;
         this.gravity = false;
+        this.lookAtPlayer = true;
     }
 
     public int getId() {
@@ -127,6 +130,12 @@ public class NPCData {
     }
     public boolean hasGravity() {
         return gravity;
+    }
+    public void setLookAtPlayer(boolean lookAtPlayer) {
+        this.lookAtPlayer = lookAtPlayer;
+    }
+    public boolean isLookAtPlayer() {
+        return lookAtPlayer;
     }
     
     
