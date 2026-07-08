@@ -162,13 +162,10 @@ public void setSilent(boolean enabled) {
     data.setSilent(enabled);  
 }  
 
-public void setCollidable(boolean enabled) {  
+public void setCollidable(boolean enabled) {
 
-    if (getEntity() != null) {  
-        getEntity().setCollidable(enabled);  
-}  
-
-    data.setCollidable(enabled);  
+    // TODO: Implement collision support for your server version.
+    data.setCollidable(enabled);
 }
 
 }
