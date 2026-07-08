@@ -681,6 +681,114 @@ if (args[0].equalsIgnoreCase("look")) {
     return true;
         }
 
+    // /npc command
+if (args[0].equalsIgnoreCase("command")) {
+
+    if (!plugin.getNpcEditorManager().isEditing(player)) {
+        player.sendMessage("§cYou are not editing any NPC.");
+        return true;
+    }
+
+    if (args.length < 2) {
+        player.sendMessage("§6Command Editor");
+        player.sendMessage("§e/npc command add <command>");
+        player.sendMessage("§e/npc command remove <index>");
+        player.sendMessage("§e/npc command list");
+        player.sendMessage("§e/npc command clear");
+        return true;
+    }
+
+    int npcId = plugin.getNpcEditorManager().getEditingNPC(player);
+
+    NPCData npc = plugin.getNpcManager().getNPC(npcId);
+
+    if (npc == null) {
+        player.sendMessage("§cNPC not found.");
+        return true;
+    }
+
+    // ADD
+    if (args[1].equalsIgnoreCase("add")) {
+
+        if (args.length < 3) {
+            player.sendMessage("§cUsage: /npc command add <command>");
+            return true;
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 2; i < args.length; i++) {
+            builder.append(args[i]);
+
+            if (i + 1 < args.length) {
+                builder.append(" ");
+            }
+        }
+
+        npc.addCommand(builder.toString());
+
+        plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+        player.sendMessage("§aCommand added.");
+
+        return true;
+    }
+
+    // REMOVE
+    if (args[1].equalsIgnoreCase("remove")) {
+
+        if (args.length < 3) {
+            player.sendMessage("§cUsage: /npc command remove <index>");
+            return true;
+        }
+
+        try {
+
+            int index = Integer.parseInt(args[2]) - 1;
+
+            npc.removeCommand(index);
+
+            plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+            player.sendMessage("§aCommand removed.");
+
+        } catch (NumberFormatException e) {
+            player.sendMessage("§cInvalid index.");
+        }
+
+        return true;
+    }
+
+    // LIST
+    if (args[1].equalsIgnoreCase("list")) {
+
+        player.sendMessage("§6===== NPC Commands =====");
+
+        int i = 1;
+
+        for (String cmd : npc.getCommands()) {
+
+            player.sendMessage("§e" + i + ". §f" + cmd);
+
+            i++;
+        }
+
+        return true;
+    }
+
+    // CLEAR
+    if (args[1].equalsIgnoreCase("clear")) {
+
+        npc.clearCommands();
+
+        plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+        player.sendMessage("§aAll commands cleared.");
+
+        return true;
+    }
+}
+
 // /npc tp <id>
 if (args[0].equalsIgnoreCase("tp")) {
 
