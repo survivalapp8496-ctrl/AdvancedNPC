@@ -9,6 +9,8 @@ public class NPCData {
 
     private final int id;
 
+    private boolean gravity;
+
     private boolean ai;
 
     private UUID uuid;
@@ -44,6 +46,7 @@ public class NPCData {
         this.lookAtPlayer = true;
         this.glowing = false;
         this.ai = false;
+        this.gravity = false;
     }
 
     public int getId() {
@@ -119,5 +122,12 @@ public class NPCData {
     public boolean hasAI() {
         return ai;
     }
+    public void setGravity(boolean gravity) {
+        this.gravity = gravity;
+    }
+    public boolean hasGravity() {
+        return gravity;
+    }
+    
     
 }
