@@ -211,6 +211,64 @@ if (args[0].equalsIgnoreCase("rename")) {
     return true;
 }
 
+// /npc glow <on|off>
+if (args[0].equalsIgnoreCase("glow")) {
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage: /npc glow <on|off>");
+        return true;
+    }
+
+    if (!plugin.getNpcEditorManager().isEditing(player)) {
+        player.sendMessage("§cYou are not editing any NPC.");
+        return true;
+    }
+
+    int npcId = plugin.getNpcEditorManager().getEditingNPC(player);
+
+    NPCData npc = plugin.getNpcManager().getNPC(npcId);
+
+    if (npc == null) {
+        player.sendMessage("§cNPC not found.");
+        return true;
+    }
+
+    boolean glow;
+
+    if (args[1].equalsIgnoreCase("on")) {
+
+        glow = true;
+
+    } else if (args[1].equalsIgnoreCase("off")) {
+
+        glow = false;
+
+    } else {
+
+        player.sendMessage("§cUsage: /npc glow <on|off>");
+        return true;
+
+    }
+
+    npc.setGlowing(glow);
+
+    EntityNPC entityNPC = plugin.getNpcSpawnManager().getNPC(npcId);
+
+    if (entityNPC != null) {
+        entityNPC.setGlowing(glow);
+    }
+
+    plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+    if (glow) {
+        player.sendMessage("§aNPC glowing enabled.");
+    } else {
+        player.sendMessage("§aNPC glowing disabled.");
+    }
+
+    return true;
+}
+
 
 // /npc tp <id>
 if (args[0].equalsIgnoreCase("tp")) {
@@ -319,6 +377,7 @@ if (args[0].equalsIgnoreCase("movehere")) {
         player.sendMessage("§e/npc movehere <id>");
         player.sendMessage("§e/npc edit <id>");
         player.sendMessage("§e/npc rename <name>");
+        player.sendMessage("§e/npc glow <on|off>");
         player.sendMessage("§6=================================");
     }
 }
