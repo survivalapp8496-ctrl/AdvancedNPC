@@ -21,6 +21,7 @@ public class NPCData {
     private boolean glowing;
     private boolean gravity;
     private boolean ai;
+    private boolean invulnerable;
 
     public NPCData(
             int id,
@@ -41,6 +42,7 @@ public class NPCData {
         this.glowing = false;
         this.ai = false;
         this.gravity = false;
+        this.invulnerable = true;
     }
 
     public int getId() {
@@ -90,6 +92,9 @@ public class NPCData {
     public boolean hasGravity() {
         return gravity;
     }
+    public boolean isInvulnerable() {
+        return invulnerable;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -125,5 +130,8 @@ public class NPCData {
 
     public void setGravity(boolean gravity) {
         this.gravity = gravity;
+    }
+    public void setInvulnerable(boolean invulnerable) {
+        this.invulnerable = invulnerable;
     }
 }
