@@ -158,6 +158,58 @@ if (args.length >= 2 &&
     return true;
 }
 
+// /npc rename <newName>
+if (args[0].equalsIgnoreCase("rename")) {
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage: /npc rename <name>");
+        return true;
+    }
+
+    if (!plugin.getNpcEditorManager().isEditing(player)) {
+        player.sendMessage("§cYou are not editing any NPC.");
+        return true;
+    }
+
+    int id = plugin.getNpcEditorManager().getEditingNPC(player);
+
+    NPCData npc = plugin.getNpcManager().getNPC(id);
+
+    if (npc == null) {
+        player.sendMessage("§cNPC not found.");
+        return true;
+    }
+
+    StringBuilder builder = new StringBuilder();
+
+    for (int i = 1; i < args.length; i++) {
+
+        builder.append(args[i]);
+
+        if (i != args.length - 1) {
+            builder.append(" ");
+        }
+
+    }
+
+    String newName = builder.toString();
+
+    npc.setName(newName);
+
+    if (plugin.getNpcSpawnManager().getNPC(id) != null) {
+
+        plugin.getNpcSpawnManager()
+                .getNPC(id)
+                .setCustomName(newName);
+
+    }
+
+    plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+    player.sendMessage("§aNPC renamed to §e" + newName);
+
+    return true;
+}
 
 
 // /npc tp <id>
@@ -266,6 +318,7 @@ if (args[0].equalsIgnoreCase("movehere")) {
         player.sendMessage("§e/npc tp <id>");
         player.sendMessage("§e/npc movehere <id>");
         player.sendMessage("§e/npc edit <id>");
+        player.sendMessage("§e/npc rename <name>");
         player.sendMessage("§6=================================");
     }
 }
