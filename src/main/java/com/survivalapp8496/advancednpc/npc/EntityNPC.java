@@ -143,4 +143,13 @@ public class EntityNPC {
 
         data.setGravity(enabled);
     }
+    
+    public void setInvulnerable(boolean enabled) {
+
+        if (getEntity() != null) {
+            getEntity().setInvulnerable(enabled);
+    }
+
+        data.setInvulnerable(enabled);
+    }
 }
