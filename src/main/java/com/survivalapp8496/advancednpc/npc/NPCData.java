@@ -23,6 +23,7 @@ public class NPCData {
     private boolean ai;
     private boolean invulnerable;
     private boolean silent;
+    private boolean collidable;
 
     public NPCData(
             int id,
@@ -45,6 +46,7 @@ public class NPCData {
         this.gravity = false;
         this.invulnerable = true;
         this.silent = true;
+        this.collidable = true;
     }
 
     public int getId() {
@@ -103,6 +105,10 @@ public class NPCData {
         return silent;
     }
 
+    public boolean isCollidable() {
+        return collidable;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -144,5 +150,9 @@ public class NPCData {
     }
     public void setInvulnerable(boolean invulnerable) {
         this.invulnerable = invulnerable;
+    }
+
+    public void setCollidable(boolean collidable) {
+        this.collidable = collidable;
     }
 }
