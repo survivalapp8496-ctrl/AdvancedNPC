@@ -529,6 +529,112 @@ if (args[0].equalsIgnoreCase("collidable")) {
     return true;
 }
 
+// /npc permission <on|off>
+if (args[0].equalsIgnoreCase("permission")) {
+
+    if (!plugin.getNpcEditorManager().isEditing(player)) {
+        player.sendMessage("§cYou are not editing any NPC.");
+        return true;
+    }
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage:");
+        player.sendMessage("§e/npc permission on");
+        player.sendMessage("§e/npc permission off");
+        player.sendMessage("§e/npc permission set <permission>");
+        player.sendMessage("§e/npc permission message <message>");
+        player.sendMessage("§e/npc permission clear");
+        return true;
+    }
+
+    int npcId = plugin.getNpcEditorManager().getEditingNPC(player);
+
+    NPCData npc = plugin.getNpcManager().getNPC(npcId);
+
+    if (npc == null) {
+        player.sendMessage("§cNPC not found.");
+        return true;
+    }
+
+    if (args[1].equalsIgnoreCase("on")) {
+
+        npc.setPermissionEnabled(true);
+
+        plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+        player.sendMessage("§aPermission system enabled.");
+
+        return true;
+    }
+
+    if (args[1].equalsIgnoreCase("off")) {
+
+        npc.setPermissionEnabled(false);
+
+        plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+        player.sendMessage("§cPermission system disabled.");
+
+        return true;
+    }
+
+    if (args[1].equalsIgnoreCase("set")) {
+
+        if (args.length < 3) {
+            player.sendMessage("§cUsage: /npc permission set <permission>");
+            return true;
+        }
+
+        npc.setPermission(args[2]);
+
+        plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+        player.sendMessage("§aPermission set to: §e" + args[2]);
+
+        return true;
+    }
+
+    if (args[1].equalsIgnoreCase("clear")) {
+
+        npc.setPermission("");
+
+        plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+        player.sendMessage("§aPermission cleared.");
+
+        return true;
+    }
+
+    if (args[1].equalsIgnoreCase("message")) {
+
+        if (args.length < 3) {
+            player.sendMessage("§cUsage: /npc permission message <message>");
+            return true;
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 2; i < args.length; i++) {
+
+            builder.append(args[i]);
+
+            if (i + 1 < args.length) {
+                builder.append(" ");
+            }
+        }
+
+        npc.setPermissionMessage(
+                builder.toString().replace("&", "§")
+        );
+
+        plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+        player.sendMessage("§aPermission message updated.");
+
+        return true;
+    }
+}
+
 // /npc look <on|off>
 if (args[0].equalsIgnoreCase("look")) {
 
