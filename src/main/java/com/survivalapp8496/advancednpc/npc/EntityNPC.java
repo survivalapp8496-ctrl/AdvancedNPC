@@ -8,137 +8,167 @@ import org.bukkit.inventory.ItemStack;
 
 public class EntityNPC {
 
-    private final NPCData data;
-    private final NPCEntity npcEntity;
+private final NPCData data;  
+private final NPCEntity npcEntity;  
 
-    public EntityNPC(NPCData data, NPCEntity npcEntity) {
-        this.data = data;
-        this.npcEntity = npcEntity;
-    }
+public EntityNPC(NPCData data, NPCEntity npcEntity) {  
+    this.data = data;  
+    this.npcEntity = npcEntity;  
+}  
 
-    public NPCData getData() {
-        return data;
-    }
+public NPCData getData() {  
+    return data;  
+}  
 
-    public Entity getEntity() {
-        return npcEntity.getEntity();
-    }
+public Entity getEntity() {  
+    return npcEntity.getEntity();  
+}  
 
-    public void teleport(Location location) {
-        npcEntity.teleport(location);
-        data.setLocation(location);
-    }
+public void teleport(Location location) {  
+    npcEntity.teleport(location);  
+    data.setLocation(location);  
+}  
 
-    public void remove() {
-        npcEntity.remove();
-    }
+public void remove() {  
+    npcEntity.remove();  
+}  
 
-    public void setGlowing(boolean glowing) {
-        if (getEntity() != null) {
-            getEntity().setGlowing(glowing);
-        }
-        data.setGlowing(glowing);
-    }
+public void setGlowing(boolean glowing) {  
 
-    public void setCustomName(String name) {
-        if (getEntity() != null) {
-            getEntity().customName(net.kyori.adventure.text.Component.text(name));
-            getEntity().setCustomNameVisible(true);
-        }
-        data.setName(name);
-    }
+    if (getEntity() != null) {  
+        getEntity().setGlowing(glowing);  
+    }  
 
-    public void setHelmet(ItemStack item) {
-        if (getEntity() instanceof LivingEntity living) {
-            EntityEquipment eq = living.getEquipment();
-            if (eq != null) {
-                eq.setHelmet(item);
-            }
-        }
-    }
+    data.setGlowing(glowing);  
+}  
 
-    public void setChestplate(ItemStack item) {
-        if (getEntity() instanceof LivingEntity living) {
-            EntityEquipment eq = living.getEquipment();
-            if (eq != null) {
-                eq.setChestplate(item);
-            }
-        }
-    }
+public void setCustomName(String name) {  
 
-    public void setLeggings(ItemStack item) {
-        if (getEntity() instanceof LivingEntity living) {
-            EntityEquipment eq = living.getEquipment();
-            if (eq != null) {
-                eq.setLeggings(item);
-            }
-        }
-    }
+    if (getEntity() != null) {  
+        getEntity().customName(net.kyori.adventure.text.Component.text(name));  
+        getEntity().setCustomNameVisible(true);  
+    }  
 
-    public void setBoots(ItemStack item) {
-        if (getEntity() instanceof LivingEntity living) {
-            EntityEquipment eq = living.getEquipment();
-            if (eq != null) {
-                eq.setBoots(item);
-            }
-        }
-    }
+    data.setName(name);  
+}  
 
-    public void setMainHand(ItemStack item) {
-        if (getEntity() instanceof LivingEntity living) {
-            EntityEquipment eq = living.getEquipment();
-            if (eq != null) {
-                eq.setItemInMainHand(item);
-            }
-        }
-    }
+public void setHelmet(ItemStack item) {  
 
-    public void setOffHand(ItemStack item) {
-        if (getEntity() instanceof LivingEntity living) {
-            EntityEquipment eq = living.getEquipment();
-            if (eq != null) {
-                eq.setItemInOffHand(item);
-            }
-        }
-    }
+    if (getEntity() instanceof LivingEntity living) {  
 
-    // AI
-    public void setAI(boolean enabled) {
-        if (getEntity() instanceof LivingEntity living) {
-            living.setAI(enabled);
-        }
-        data.setAI(enabled);
-    }
+        EntityEquipment eq = living.getEquipment();  
 
-    // Gravity
-    public void setGravity(boolean enabled) {
-        if (getEntity() != null) {
-            getEntity().setGravity(enabled);
-        }
-        data.setGravity(enabled);
-    }
+        if (eq != null) {  
+            eq.setHelmet(item);  
+        }  
+    }  
+}  
 
-    // Invulnerable
-    public void setInvulnerable(boolean enabled) {
-        if (getEntity() != null) {
-            getEntity().setInvulnerable(enabled);
-        }
-        data.setInvulnerable(enabled);
-    }
+public void setChestplate(ItemStack item) {  
 
-    // Silent
-    public void setSilent(boolean enabled) {
-        if (getEntity() != null) {
-            getEntity().setSilent(enabled);
-        }
-        data.setSilent(enabled);
-    }
+    if (getEntity() instanceof LivingEntity living) {  
 
-    // Collidable
-    public void setCollidable(boolean enabled) {
-        if (getEntity() != null) {
-            getEntity().setCollidable(enabled);
-        }
-        data.setCollidable(enabled);
-    }
+        EntityEquipment eq = living.getEquipment();  
+
+        if (eq != null) {  
+            eq.setChestplate(item);  
+        }  
+    }  
+}  
+
+public void setLeggings(ItemStack item) {  
+
+    if (getEntity() instanceof LivingEntity living) {  
+
+        EntityEquipment eq = living.getEquipment();  
+
+        if (eq != null) {  
+            eq.setLeggings(item);  
+        }  
+    }  
+}  
+
+public void setBoots(ItemStack item) {  
+
+    if (getEntity() instanceof LivingEntity living) {  
+
+        EntityEquipment eq = living.getEquipment();  
+
+        if (eq != null) {  
+            eq.setBoots(item);  
+        }  
+    }  
+}  
+
+public void setMainHand(ItemStack item) {  
+
+    if (getEntity() instanceof LivingEntity living) {  
+
+        EntityEquipment eq = living.getEquipment();  
+
+        if (eq != null) {  
+            eq.setItemInMainHand(item);  
+        }  
+    }  
+}  
+
+public void setOffHand(ItemStack item) {  
+
+    if (getEntity() instanceof LivingEntity living) {  
+
+        EntityEquipment eq = living.getEquipment();  
+
+        if (eq != null) {  
+            eq.setItemInOffHand(item);  
+        }  
+    }  
+}  
+
+// AI  
+public void setAI(boolean enabled) {  
+
+    if (getEntity() instanceof LivingEntity living) {  
+        living.setAI(enabled);  
+    }  
+
+    data.setAI(enabled);  
+}  
+
+// Gravity  
+public void setGravity(boolean enabled) {  
+
+    if (getEntity() != null) {  
+        getEntity().setGravity(enabled);  
+    }  
+
+    data.setGravity(enabled);  
+}  
+  
+public void setInvulnerable(boolean enabled) {  
+
+    if (getEntity() != null) {  
+        getEntity().setInvulnerable(enabled);  
+}  
+
+    data.setInvulnerable(enabled);  
+}  
+
+public void setSilent(boolean enabled) {  
+
+    if (getEntity() != null) {  
+        getEntity().setSilent(enabled);  
+}  
+
+    data.setSilent(enabled);  
+}  
+
+public void setCollidable(boolean enabled) {  
+
+    if (getEntity() != null) {  
+        getEntity().setCollidable(enabled);  
+}  
+
+    data.setCollidable(enabled);  
+}
+
 }
