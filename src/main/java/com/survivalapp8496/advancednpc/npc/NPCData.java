@@ -24,6 +24,7 @@ public class NPCData {
     private boolean invulnerable;
     private boolean silent;
     private boolean collidable;
+    private NPCPose pose;
 
     public NPCData(
             int id,
@@ -47,6 +48,7 @@ public class NPCData {
         this.invulnerable = true;
         this.silent = true;
         this.collidable = true;
+        this.pose = NPCPose.STANDING;
     }
 
     public int getId() {
@@ -109,6 +111,10 @@ public class NPCData {
         return collidable;
     }
 
+    public NPCPose getPose() {
+        return pose;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -154,5 +160,9 @@ public class NPCData {
 
     public void setCollidable(boolean collidable) {
         this.collidable = collidable;
+    }
+
+    public void setPose(NPCPose pose) {
+        this.pose = pose;
     }
 }
