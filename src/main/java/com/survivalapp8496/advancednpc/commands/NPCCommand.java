@@ -119,13 +119,16 @@ if (args[0].equalsIgnoreCase("remove")) {
 
     return true;
 
+}
+    
+
     // /npc edit <id>
 if (args.length >= 2 &&
         args[0].equalsIgnoreCase("edit")) {
 
     try {
 
-        int id = Integer.parseInt(args[1]);
+        int id 
 
         NPCData npc = plugin.getNpcManager().getNPC(id);
 
@@ -154,7 +157,7 @@ if (args.length >= 2 &&
 
     return true;
 }
-}
+
 
 
 // /npc tp <id>
