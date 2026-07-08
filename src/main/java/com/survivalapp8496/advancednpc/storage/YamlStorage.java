@@ -114,7 +114,7 @@ public class YamlStorage {
             npc.setAI(data.getBoolean(path + ".ai", false));
             npc.setGravity(data.getBoolean(path + ".gravity", false));
             npc.setLookAtPlayer(data.getBoolean(path + ".look", true));
-            npc.setInvulnerable(data.getBoolean(path + ".invulnerable", true)
+            npc.setInvulnerable(data.getBoolean(path + ".invulnerable", true));
             npc.setSilent(data.getBoolean(path + ".silent", true)              
             );
 
