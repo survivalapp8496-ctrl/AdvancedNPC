@@ -38,6 +38,7 @@ public class YamlStorage {
 
             data.set(path + ".name", npc.getName());
             data.set(path + ".type", npc.getEntityType().name());
+            data.set(path + ".ai", npc.hasAI());
 
             Location loc = npc.getLocation();
 
@@ -92,6 +93,10 @@ public class YamlStorage {
                             data.getString(path + ".type")
                     ),
                     loc
+            );
+
+            npc.setAI(
+                    data.getBoolean(path + ".ai", false)
             );
 
             manager.getNPCMap().put(id, npc);
