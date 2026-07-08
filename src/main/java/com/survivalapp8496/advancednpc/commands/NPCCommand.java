@@ -321,6 +321,57 @@ if (args[0].equalsIgnoreCase("ai")) {
     return true;
 }
 
+// /npc gravity <on|off>
+if (args[0].equalsIgnoreCase("gravity")) {
+
+    if (args.length < 2) {
+        player.sendMessage("§cUsage: /npc gravity <on|off>");
+        return true;
+    }
+
+    if (!plugin.getNpcEditorManager().isEditing(player)) {
+        player.sendMessage("§cYou are not editing any NPC.");
+        return true;
+    }
+
+    int npcId = plugin.getNpcEditorManager().getEditingNPC(player);
+
+    NPCData npc = plugin.getNpcManager().getNPC(npcId);
+
+    if (npc == null) {
+        player.sendMessage("§cNPC not found.");
+        return true;
+    }
+
+    boolean enabled;
+
+    if (args[1].equalsIgnoreCase("on")) {
+        enabled = true;
+    } else if (args[1].equalsIgnoreCase("off")) {
+        enabled = false;
+    } else {
+        player.sendMessage("§cUsage: /npc gravity <on|off>");
+        return true;
+    }
+
+    npc.setGravity(enabled);
+
+    EntityNPC entityNPC = plugin.getNpcSpawnManager().getNPC(npcId);
+
+    if (entityNPC != null) {
+        entityNPC.setGravity(enabled);
+    }
+
+    plugin.getStorage().saveNPCs(plugin.getNpcManager());
+
+    player.sendMessage(
+            enabled
+                    ? "§aNPC gravity enabled."
+                    : "§cNPC gravity disabled."
+    );
+
+    return true;
+}
 
 // /npc tp <id>
 if (args[0].equalsIgnoreCase("tp")) {
@@ -431,6 +482,7 @@ if (args[0].equalsIgnoreCase("movehere")) {
         player.sendMessage("§e/npc rename <name>");
         player.sendMessage("§e/npc glow <on|off>");
         player.sendMessage("§e/npc ai <on|off>");
+        player.sendMessage("§e/npc gravity <on|off>");
         player.sendMessage("§6=================================");
     }
 }
