@@ -48,6 +48,7 @@ public class YamlStorage {
             data.set(path + ".permission.enabled", npc.isPermissionEnabled());
             data.set(path + ".permission.node", npc.getPermission());
             data.set(path + ".permission.message", npc.getPermissionMessage());
+            data.set(path + ".commands", npc.getCommands());
 
             Location loc = npc.getLocation();
 
@@ -126,8 +127,12 @@ public class YamlStorage {
             npc.setPermissionMessage(data.getString(
                 path + ".permission.message",
                 "§cYou don't have permission."
-        )
-);
+             )
+            );
+            java.util.List<String> commands =
+            data.getStringList(path + ".commands");
+
+            npc.getCommands().addAll(commands);
             
 
             manager.getNPCMap().put(id, npc);
