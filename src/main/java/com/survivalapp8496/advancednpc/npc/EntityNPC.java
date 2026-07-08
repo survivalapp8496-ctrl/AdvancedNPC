@@ -161,4 +161,13 @@ public class EntityNPC {
 
         data.setSilent(enabled);
     }
+
+    public void setCollidable(boolean enabled) {
+
+        if (getEntity() != null) {
+            getEntity().setCollidable(enabled);
+    }
+
+        data.setCollidable(enabled);
+    }
 }
