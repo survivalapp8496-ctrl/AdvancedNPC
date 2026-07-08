@@ -24,7 +24,6 @@ public class NPCData {
     private boolean invulnerable;
     private boolean silent;
     private boolean collidable;
-    private NPCPose pose;
 
     public NPCData(
             int id,
@@ -90,18 +89,18 @@ public class NPCData {
         return glowing;
     }
 
+    public boolean hasGravity() {
+        return gravity;
+    }
+
     public boolean hasAI() {
         return ai;
     }
 
-    public boolean hasGravity() {
-        return gravity;
-    }
-    
     public boolean isInvulnerable() {
         return invulnerable;
     }
-    
+
     public boolean isSilent() {
         return silent;
     }
@@ -138,24 +137,23 @@ public class NPCData {
         this.glowing = glowing;
     }
 
+    public void setGravity(boolean gravity) {
+        this.gravity = gravity;
+    }
+
     public void setAI(boolean ai) {
         this.ai = ai;
+    }
+
+    public void setInvulnerable(boolean invulnerable) {
+        this.invulnerable = invulnerable;
     }
 
     public void setSilent(boolean silent) {
         this.silent = silent;
     }
 
-    public void setGravity(boolean gravity) {
-        this.gravity = gravity;
-    }
-    public void setInvulnerable(boolean invulnerable) {
-        this.invulnerable = invulnerable;
-    }
-
     public void setCollidable(boolean collidable) {
         this.collidable = collidable;
     }
-
-    
 }
