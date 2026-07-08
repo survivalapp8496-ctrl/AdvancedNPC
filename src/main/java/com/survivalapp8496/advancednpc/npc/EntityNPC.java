@@ -173,9 +173,32 @@ public void setPose(NPCPose pose) {
     if (getEntity() instanceof LivingEntity living) {
 
         try {
-            living.setPose(org.bukkit.entity.Pose.valueOf(pose.name()));
-        } catch (IllegalArgumentException ignored) {
-            // Unsupported pose on this server version
+
+            switch (pose) {
+
+                case STANDING ->
+                        living.setPose(org.bukkit.entity.Pose.STANDING);
+
+                case CROUCHING ->
+                        living.setPose(org.bukkit.entity.Pose.SNEAKING);
+
+                case SLEEPING ->
+                        living.setPose(org.bukkit.entity.Pose.SLEEPING);
+
+                case SWIMMING ->
+                        living.setPose(org.bukkit.entity.Pose.SWIMMING);
+
+                case FALL_FLYING ->
+                        living.setPose(org.bukkit.entity.Pose.FALL_FLYING);
+
+                case SPIN_ATTACK ->
+                        living.setPose(org.bukkit.entity.Pose.SPIN_ATTACK);
+
+                default -> {
+                }
+            }
+
+        } catch (Exception ignored) {
         }
     }
 
