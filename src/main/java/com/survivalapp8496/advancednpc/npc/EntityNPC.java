@@ -152,4 +152,13 @@ public class EntityNPC {
 
         data.setInvulnerable(enabled);
     }
+
+    public void setSilent(boolean enabled) {
+
+        if (getEntity() != null) {
+            getEntity().setSilent(enabled);
+    }
+
+        data.setSilent(enabled);
+    }
 }
