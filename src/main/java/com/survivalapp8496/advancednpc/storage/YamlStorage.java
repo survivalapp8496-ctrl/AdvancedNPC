@@ -42,6 +42,7 @@ public class YamlStorage {
             data.set(path + ".ai", npc.hasAI());
             data.set(path + ".gravity", npc.hasGravity());
             data.set(path + ".look", npc.isLookAtPlayer());
+            data.set(path + ".invulnerable", npc.isInvulnerable());
 
             Location loc = npc.getLocation();
 
@@ -112,6 +113,8 @@ public class YamlStorage {
             npc.setAI(data.getBoolean(path + ".ai", false));
             npc.setGravity(data.getBoolean(path + ".gravity", false));
             npc.setLookAtPlayer(data.getBoolean(path + ".look", true));
+            npc.setInvulnerable(data.getBoolean(path + ".invulnerable", true)
+            );
 
             manager.getNPCMap().put(id, npc);
         }
