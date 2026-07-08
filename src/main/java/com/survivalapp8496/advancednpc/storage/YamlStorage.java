@@ -5,6 +5,8 @@ import com.survivalapp8496.advancednpc.npc.NPCData;
 import com.survivalapp8496.advancednpc.npc.NPCManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 
@@ -13,12 +15,10 @@ import java.io.IOException;
 
 public class YamlStorage {
 
-    private final AdvancedNPCPlugin plugin;
     private final File file;
     private final YamlConfiguration data;
 
     public YamlStorage(AdvancedNPCPlugin plugin) {
-        this.plugin = plugin;
         this.file = new File(plugin.getDataFolder(), "data.yml");
 
         if (!file.exists()) {
@@ -29,6 +29,7 @@ public class YamlStorage {
     }
 
     public void saveNPCs(NPCManager manager) {
+
         data.set("last-id", manager.getLastId());
         data.set("npcs", null);
 
@@ -63,24 +64,37 @@ public class YamlStorage {
 
         manager.setLastId(data.getInt("last-id", 0));
 
-        if (!data.contains("npcs")) {
+        ConfigurationSection section = data.getConfigurationSection("npcs");
+        if (section == null) {
             return;
         }
 
-        for (String idString :
-                data.getConfigurationSection("npcs").getKeys(false)) {
+        for (String idString : section.getKeys(false)) {
 
-            int id = Integer.parseInt(idString);
+            int id;
 
-            String path = "npcs." + id;
-
-            String world = data.getString(path + ".world");
-            if (Bukkit.getWorld(world) == null) {
+            try {
+                id = Integer.parseInt(idString);
+            } catch (NumberFormatException ignored) {
                 continue;
             }
 
-            Location loc = new Location(
-                    Bukkit.getWorld(world),
+            String path = "npcs." + id;
+
+            World world = Bukkit.getWorld(data.getString(path + ".world"));
+            if (world == null) {
+                continue;
+            }
+
+            EntityType type;
+            try {
+                type = EntityType.valueOf(data.getString(path + ".type"));
+            } catch (Exception e) {
+                type = EntityType.PLAYER;
+            }
+
+            Location location = new Location(
+                    world,
                     data.getDouble(path + ".x"),
                     data.getDouble(path + ".y"),
                     data.getDouble(path + ".z"),
@@ -90,23 +104,14 @@ public class YamlStorage {
 
             NPCData npc = new NPCData(
                     id,
-                    data.getString(path + ".name"),
-                    EntityType.valueOf(
-                            data.getString(path + ".type")
-                    ),
-                    loc
+                    data.getString(path + ".name", "NPC"),
+                    type,
+                    location
             );
 
-            npc.setAI(
-                    data.getBoolean(path + ".ai", false)
-            );
-
-            npc.setGravity(
-                    data.getBoolean(path + ".gravity", false)
-            );
-            npc.setLookAtPlayer(
-                 data.getBoolean(path + ".look", true)
-            );
+            npc.setAI(data.getBoolean(path + ".ai", false));
+            npc.setGravity(data.getBoolean(path + ".gravity", false));
+            npc.setLookAtPlayer(data.getBoolean(path + ".look", true));
 
             manager.getNPCMap().put(id, npc);
         }
