@@ -22,6 +22,7 @@ public class NPCData {
     private boolean gravity;
     private boolean ai;
     private boolean invulnerable;
+    private boolean silent;
 
     public NPCData(
             int id,
@@ -43,6 +44,7 @@ public class NPCData {
         this.ai = false;
         this.gravity = false;
         this.invulnerable = true;
+        this.silent = true;
     }
 
     public int getId() {
@@ -92,8 +94,13 @@ public class NPCData {
     public boolean hasGravity() {
         return gravity;
     }
+    
     public boolean isInvulnerable() {
         return invulnerable;
+    }
+    
+    public boolean isSilent() {
+        return silent;
     }
 
     public void setName(String name) {
@@ -126,6 +133,10 @@ public class NPCData {
 
     public void setAI(boolean ai) {
         this.ai = ai;
+    }
+
+    public void setSilent(boolean silent) {
+        this.silent = silent;
     }
 
     public void setGravity(boolean gravity) {
