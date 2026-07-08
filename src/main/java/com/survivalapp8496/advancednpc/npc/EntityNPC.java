@@ -124,7 +124,7 @@ public class EntityNPC {
         }
     }
 
-    // New AI Method
+    // AI
     public void setAI(boolean enabled) {
 
         if (getEntity() instanceof LivingEntity living) {
@@ -134,4 +134,13 @@ public class EntityNPC {
         data.setAI(enabled);
     }
 
+    // Gravity
+    public void setGravity(boolean enabled) {
+
+        if (getEntity() != null) {
+            getEntity().setGravity(enabled);
+        }
+
+        data.setGravity(enabled);
+    }
 }
