@@ -15,13 +15,14 @@ public class ProtocolHook {
 
     public void register() {
 
-        // Register packet listeners here later
-        // protocolManager.addPacketListener(new ProtocolListener(plugin));
+    protocolManager.addPacketListener(
+            new ProtocolListener(plugin)
+    );
 
-        plugin.getLogger().info("--------------------------------");
-        plugin.getLogger().info("ProtocolLib Loaded");
-        plugin.getLogger().info("Protocol Hook Enabled");
-        plugin.getLogger().info("--------------------------------");
+    plugin.getLogger().info("--------------------------------");
+    plugin.getLogger().info("ProtocolLib Loaded");
+    plugin.getLogger().info("Protocol Hook Enabled");
+    plugin.getLogger().info("--------------------------------");
     }
 
     public void unregister() {
