@@ -1,28 +1,26 @@
 package com.survivalapp8496.advancednpc.protocol;
 
 import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import com.survivalapp8496.advancednpc.AdvancedNPCPlugin;
 
-public class ProtocolManager {
+public class ProtocolHook {
 
     private final AdvancedNPCPlugin plugin;
-    private final ProtocolManager protocolManager;
+    private final com.comphenix.protocol.ProtocolManager protocolManager;
 
-    public ProtocolManager(AdvancedNPCPlugin plugin) {
+    public ProtocolHook(AdvancedNPCPlugin plugin) {
         this.plugin = plugin;
         this.protocolManager = ProtocolLibrary.getProtocolManager();
     }
 
     public void register() {
 
-        protocolManager.addPacketListener(
-                new ProtocolListener(plugin)
-        );
+        // Register packet listeners here later
+        // protocolManager.addPacketListener(new ProtocolListener(plugin));
 
         plugin.getLogger().info("--------------------------------");
         plugin.getLogger().info("ProtocolLib Loaded");
-        plugin.getLogger().info("Left Click NPC Enabled");
+        plugin.getLogger().info("Protocol Hook Enabled");
         plugin.getLogger().info("--------------------------------");
     }
 
@@ -30,7 +28,7 @@ public class ProtocolManager {
         protocolManager.removePacketListeners(plugin);
     }
 
-    public ProtocolManager getProtocolManager() {
+    public com.comphenix.protocol.ProtocolManager getProtocolManager() {
         return protocolManager;
     }
 }
