@@ -22,8 +22,14 @@ public class ProtocolListener extends PacketAdapter {
     }
 
     @Override
-    public void onPacketReceiving(PacketEvent event) {
+public void onPacketReceiving(PacketEvent event) {
 
-        // Left-click handling will be added here
-    }
+    int entityId = event.getPacket()
+            .getIntegers()
+            .read(0);
+
+    plugin.getLogger().info(
+            "USE_ENTITY Packet -> Entity ID: " + entityId
+    );
+}
 }
